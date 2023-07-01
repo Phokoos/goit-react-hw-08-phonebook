@@ -1,21 +1,22 @@
 import axios from 'axios'
-
-const BASE_URL = 'https://6497fa159543ce0f49e18b94.mockapi.io/contacts'
+import { instance } from './axiosConfigApi'
 
 export const getPhonebookApi = async () => {
-	const data = await axios.get(BASE_URL)
+	const { data } = await instance.get('/contacts')
+	console.log(data);
 	return data
 }
 
-export const addPhonebookContactApi = async ({ name, phone }) => {
-	const data = await axios.post(BASE_URL, {
-		name, phone
+export const addPhonebookContactApi = async ({ name, number }) => {
+	const { data } = await instance.post('/contacts', {
+		name, number
 	})
+	console.log(data);
 	return data
 }
 
-export const deletePhonebookContactApi = async (id) => {
-	const data = await axios.delete(`${BASE_URL}/${id}`)
-	return data
-}
+// export const deletePhonebookContactApi = async (id) => {
+// 	const data = await axios.delete(`${BASE_URL}/${id}`)
+// 	return data
+// }
 

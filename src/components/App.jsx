@@ -1,18 +1,23 @@
-import css from './App.module.css';
-
-import ContactForm from './ContactForm/contactForm';
-import ContactList from './ContactList/contactList';
-import Filter from './Filter/filter';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Login } from 'pages/login';
+import { Contacts } from 'pages/contacts';
+import { Register } from 'pages/register';
+import { Nav } from './Nav/nav';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
-    <div className={css.phonebook}>
-      <h1 className={css.phonebook__title}>Phonebook</h1>
-      <ContactForm />
-      <h2 className={css.phonebook__contactsTitle}>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<Nav />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contacts" element={<Contacts />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 

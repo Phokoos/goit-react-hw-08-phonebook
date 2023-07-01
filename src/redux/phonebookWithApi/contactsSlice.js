@@ -9,12 +9,13 @@ const handlePending = (state) => {
 
 const handleFulfilledContacts = (state, action) => {
 	state.contacts.isLoading = false
-	state.contacts.items = action.payload.data
+	console.log("contactsSlice:", action);
+	state.contacts.items = action.payload
 }
 
 const handleFulfilledAddContact = (state, action) => {
 	state.contacts.isLoading = false
-	state.contacts.items.push(action.payload.data)
+	state.contacts.items.push(action.payload)
 }
 
 const handleFulfilledDeleteContact = (state, action) => {
@@ -42,7 +43,7 @@ const contactsSlice = createSlice({
 
 		builder.addCase(fetchContactsThunk.fulfilled, handleFulfilledContacts)
 			.addCase(addContactsThunk.fulfilled, handleFulfilledAddContact)
-			.addCase(deleteContactsThunk.fulfilled, handleFulfilledDeleteContact)
+			// .addCase(deleteContactsThunk.fulfilled, handleFulfilledDeleteContact)
 
 			.addMatcher((action) => {
 				return action.type.endsWith("/pending")
