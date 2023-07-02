@@ -9,7 +9,6 @@ const handlePending = (state) => {
 
 const handleFulfilledContacts = (state, action) => {
 	state.contacts.isLoading = false
-	console.log("contactsSlice:", action);
 	state.contacts.items = action.payload
 }
 
@@ -20,7 +19,7 @@ const handleFulfilledAddContact = (state, action) => {
 
 const handleFulfilledDeleteContact = (state, action) => {
 	state.contacts.isLoading = false
-	state.contacts.items = state.contacts.items.filter(item => item.id !== action.payload.data.id)
+	state.contacts.items = state.contacts.items.filter(item => item.id !== action.payload.id)
 }
 
 const handleRejected = (state, { payload }) => {
@@ -43,7 +42,7 @@ const contactsSlice = createSlice({
 
 		builder.addCase(fetchContactsThunk.fulfilled, handleFulfilledContacts)
 			.addCase(addContactsThunk.fulfilled, handleFulfilledAddContact)
-			// .addCase(deleteContactsThunk.fulfilled, handleFulfilledDeleteContact)
+			.addCase(deleteContactsThunk.fulfilled, handleFulfilledDeleteContact)
 
 			.addMatcher((action) => {
 				return action.type.endsWith("/pending")

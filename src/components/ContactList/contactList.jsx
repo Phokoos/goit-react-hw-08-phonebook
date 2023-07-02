@@ -11,15 +11,14 @@ import { addPhonebookContactApi, getPhonebookApi } from 'api/phonebookApi';
 
 const ContactList = () => {
   const contactsState = useSelector(contactsListSelector);
-  console.log(contactsState);
   const contactsErrorState = useSelector(contactsError);
   const isLoading = useSelector(contactsLoading);
 
   const dispatch = useDispatch();
 
-  // const removeContacts = event => {
-  //   dispatch(deleteContactsThunk(event.target.id));
-  // };
+  const removeContacts = event => {
+    dispatch(deleteContactsThunk(event.target.id));
+  };
 
   const testOnj = {
     name: 'mykola',
@@ -51,7 +50,7 @@ const ContactList = () => {
                 id={data.id}
                 className={css.contacts__btn}
                 type="button"
-                // onClick={removeContacts}
+                onClick={removeContacts}
               >
                 delete
               </button>

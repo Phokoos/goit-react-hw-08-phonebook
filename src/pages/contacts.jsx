@@ -1,6 +1,7 @@
 import { setToken } from 'api/axiosConfigApi';
 import ContactForm from 'components/ContactForm/contactForm';
 import ContactList from 'components/ContactList/contactList';
+import Filter from 'components/Filter/filter';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ export const Contacts = () => {
   return (
     <>
       <ContactForm />
+      <Filter />
       <ContactList />
       {/* <Outlet /> */}
     </>

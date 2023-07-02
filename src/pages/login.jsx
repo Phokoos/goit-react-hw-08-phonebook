@@ -23,7 +23,9 @@ export const Login = () => {
       })
     );
 
-    event.currentTarget.reset();
+    if (event.currentTarget) {
+      event.currentTarget.reset();
+    }
   };
 
   useEffect(() => {

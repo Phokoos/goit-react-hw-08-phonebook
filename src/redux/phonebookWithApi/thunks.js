@@ -12,16 +12,17 @@ export const fetchContactsThunk = createAsyncThunk(
 export const addContactsThunk = createAsyncThunk(
 	"contacts/addContact",
 	async ({ name, number }) => {
+		console.log(name, number);
 		const response = await addPhonebookContactApi({ name, number })
 		return response;
 	}
 )
 
-// export const deleteContactsThunk = createAsyncThunk(
-// 	"contacts/deleteContact",
-// 	async (id) => {
-// 		const response = await deletePhonebookContactApi(id)
-// 		return response;
-// 	}
-// )
+export const deleteContactsThunk = createAsyncThunk(
+	"contacts/deleteContact",
+	async (id) => {
+		const response = await deletePhonebookContactApi(id)
+		return response;
+	}
+)
 

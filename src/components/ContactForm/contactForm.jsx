@@ -17,11 +17,11 @@ const ContactForm = () => {
     dispatch(fetchContactsThunk());
   }, [dispatch]);
 
-  const handleDispatchAddContacts = (name, phone) => {
+  const handleDispatchAddContacts = ({ name, number }) => {
     dispatch(
       addContactsThunk({
         name: name,
-        phone: phone,
+        number: number,
       })
     );
   };
@@ -39,7 +39,10 @@ const ContactForm = () => {
       return alert(`Name ${name} is already here`);
     }
 
-    handleDispatchAddContacts(name, action.target.number.value);
+    handleDispatchAddContacts({
+      name: name,
+      number: action.target.number.value,
+    });
 
     action.currentTarget.reset();
   };
