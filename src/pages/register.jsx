@@ -28,7 +28,7 @@ export const Register = () => {
         });
         return navigate('/login');
       })
-      .catch(error => {
+      .catch(() => {
         toast.error('Something happen wrong, please try again');
       });
 
@@ -76,8 +76,7 @@ export const Register = () => {
             }}
             type="password"
             name="password"
-            // WRITE PATTERN
-            // pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
           />
         </InputLabel>

@@ -5,6 +5,8 @@ import { Contacts } from 'pages/contacts';
 import { Register } from 'pages/register';
 import { Nav } from './Nav/nav';
 import { Toaster } from 'react-hot-toast';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
+import PublicRoute from './PublicRoute/PublicRoute';
 
 const App = () => {
   return (
@@ -12,9 +14,30 @@ const App = () => {
       <Toaster />
       <Routes>
         <Route path="/" element={<Nav />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
     </Suspense>

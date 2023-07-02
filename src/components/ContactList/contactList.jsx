@@ -1,14 +1,13 @@
 import Loader from 'components/Loader/loader';
-import css from './contactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   contactsError,
   contactsListSelector,
   contactsLoading,
 } from 'redux/phonebookWithApi/selectors';
-import {
-  deleteContactsThunk,
-} from 'redux/phonebookWithApi/thunks';
+import { deleteContactsThunk } from 'redux/phonebookWithApi/thunks';
+import { IconButton, List, ListItem } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ContactList = () => {
   const contactsState = useSelector(contactsListSelector);
@@ -18,11 +17,15 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const removeContacts = event => {
-    dispatch(deleteContactsThunk(event.target.id));
+    dispatch(deleteContactsThunk(event.currentTarget.id));
   };
 
   return (
-    <ul className={css.contacts__list}>
+    <List
+      sx={{
+        marginTop: '20px',
+      }}
+    >
       {contactsErrorState && <div>What`s happen wrong, please try again</div>}
       {isLoading && <Loader />}
       {contactsState &&
@@ -31,20 +34,28 @@ const ContactList = () => {
         contactsState.length > 0 &&
         contactsState.map(data => {
           return (
-            <li key={data.id} className={css.contacts__item}>
-              {data.name}: {data.phone}
-              <button
-                id={data.id}
-                className={css.contacts__btn}
-                type="button"
-                onClick={removeContacts}
-              >
-                delete
-              </button>
-            </li>
+            <ListItem
+              key={data.id}
+              secondaryAction={
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={removeContacts}
+                  id={data.id}
+                >
+                  <DeleteIcon id={data.id} />
+                </IconButton>
+              }
+              sx={{
+                marginTop: '5px',
+                fontSize: '18px',
+              }}
+            >
+              {data.name}: {data.number}
+            </ListItem>
           );
         })}
-    </ul>
+    </List>
   );
 };
 

@@ -19,3 +19,9 @@ export const logoutApi = async () => {
 	await dellToken()
 	return data
 }
+
+export const getUserApi = async () => {
+	const { data } = await instance.get('/users/current');
+	await console.log(data);
+	return data
+}

@@ -1,8 +1,9 @@
-import { AppBar, MenuItem, MenuList } from '@mui/material';
+import { AppBar, Button, Container, MenuItem, MenuList } from '@mui/material';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { accessToken, userEmailSelector } from 'redux/auth/selectors';
-import { logoutThunk } from 'redux/auth/thunks';
+import { getUserThunk, logoutThunk } from 'redux/auth/thunks';
 
 export const Nav = () => {
   const isAuth = useSelector(accessToken);
@@ -11,8 +12,19 @@ export const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    isAuth &&
+      !userEmail &&
+      dispatch(getUserThunk())
+        .unwrap()
+        .catch(() => {
+          dispatch(logoutThunk());
+        });
+  }, [dispatch, isAuth, userEmail]);
+
   const handleLogout = async () => {
     await dispatch(logoutThunk());
+
     navigate('/login');
   };
 
@@ -37,23 +49,43 @@ export const Nav = () => {
             display: 'flex',
           }}
         >
-          {isAuth ? (
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          ) : (
+          {!isAuth && (
             <MenuItem onClick={handleNavigateToLogin}>Login</MenuItem>
           )}
           {!isAuth && (
             <MenuItem onClick={handleNavigateToRegister}>Register</MenuItem>
           )}
-          {isAuth && (
-            <MenuItem onClick={handleNavigateToContacts}>Contacts</MenuItem>
-          )}
+          <MenuItem onClick={handleNavigateToContacts}>Contacts</MenuItem>
         </MenuList>
-        {isAuth && <div>{userEmail}</div>}
+        {isAuth && (
+          <div
+            style={{
+              padding: '8px',
+              border: '1px solid white',
+              borderRadius: '5px',
+            }}
+          >
+            {userEmail}
+          </div>
+        )}
+
+        {isAuth && (
+          <Button variant="contained" color="success" onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
       </AppBar>
-      <div style={{ paddingTop: '55px' }}>
+
+      <Container
+        sx={{
+          width: '600px',
+          paddingTop: '65px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
         <Outlet />
-      </div>
+      </Container>
     </section>
   );
 };

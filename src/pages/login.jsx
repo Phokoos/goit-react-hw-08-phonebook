@@ -1,14 +1,11 @@
 import { Button, FormLabel, Input, InputLabel } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { accessToken } from 'redux/auth/selectors';
 import { loginThunk } from 'redux/auth/thunks';
 import { fetchContactsThunk } from 'redux/phonebookWithApi/thunks';
 
 export const Login = () => {
-  const isAuth = useSelector(accessToken);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,17 +17,21 @@ export const Login = () => {
         email: event.target.email.value,
         password: event.target.password.value,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        navigate('/contacts');
+        dispatch(fetchContactsThunk());
+        toast.success('You logged in');
+      })
+      .catch(() => {
+        toast.error('Sorry something went wrong');
+      });
 
     if (event.currentTarget) {
       event.currentTarget.reset();
     }
   };
-
-  useEffect(() => {
-    isAuth && navigate('/contacts');
-    isAuth && dispatch(fetchContactsThunk());
-  }, [dispatch, isAuth, navigate]);
 
   return (
     <form onSubmit={formSubmit}>
@@ -61,8 +62,7 @@ export const Login = () => {
             }}
             type="password"
             name="password"
-            // WRITE PATTERN
-            // pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
           />
         </InputLabel>
@@ -73,7 +73,7 @@ export const Login = () => {
           variant="contained"
           type="submit"
         >
-          Add contact
+          Log in
         </Button>
       </FormLabel>
     </form>
