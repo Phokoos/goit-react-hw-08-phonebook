@@ -1,19 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addContactsThunk,
-  fetchContactsThunk,
-} from '../../redux/phonebookWithApi/thunks';
-import { useEffect } from 'react';
+import { addContactsThunk } from '../../redux/phonebookWithApi/thunks';
 
 import { Input, InputLabel, Button, FormLabel } from '@mui/material';
 
 const ContactForm = () => {
   const contactsState = useSelector(state => state.contacts.contacts.items);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContactsThunk());
-  }, [dispatch]);
 
   const handleDispatchAddContacts = ({ name, number }) => {
     dispatch(

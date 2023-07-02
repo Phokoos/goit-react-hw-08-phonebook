@@ -8,8 +8,8 @@ import { accessToken } from 'redux/auth/selectors';
 
 export const Register = () => {
   const navigate = useNavigate();
-
   const isAuth = useSelector(accessToken);
+
   useEffect(() => {
     isAuth && navigate('/contacts');
   }, [isAuth, navigate]);

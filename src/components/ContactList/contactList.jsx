@@ -6,7 +6,9 @@ import {
   contactsListSelector,
   contactsLoading,
 } from 'redux/phonebookWithApi/selectors';
-import { deleteContactsThunk } from 'redux/phonebookWithApi/thunks';
+import {
+  deleteContactsThunk,
+} from 'redux/phonebookWithApi/thunks';
 
 const ContactList = () => {
   const contactsState = useSelector(contactsListSelector);

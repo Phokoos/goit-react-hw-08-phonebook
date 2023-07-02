@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { accessToken } from 'redux/auth/selectors';
 import { loginThunk } from 'redux/auth/thunks';
+import { fetchContactsThunk } from 'redux/phonebookWithApi/thunks';
 
 export const Login = () => {
   const isAuth = useSelector(accessToken);
@@ -28,7 +29,8 @@ export const Login = () => {
 
   useEffect(() => {
     isAuth && navigate('/contacts');
-  }, [isAuth, navigate]);
+    isAuth && dispatch(fetchContactsThunk());
+  }, [dispatch, isAuth, navigate]);
 
   return (
     <form onSubmit={formSubmit}>

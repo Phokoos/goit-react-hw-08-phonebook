@@ -9,8 +9,8 @@ export const Nav = () => {
   const userEmail = useSelector(userEmailSelector);
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
   const handleLogout = async () => {
     await dispatch(logoutThunk());
     navigate('/login');
@@ -19,6 +19,7 @@ export const Nav = () => {
   const handleNavigateToLogin = () => navigate('login');
   const handleNavigateToRegister = () => navigate('register');
   const handleNavigateToContacts = () => navigate('contacts');
+
   return (
     <section>
       <AppBar
