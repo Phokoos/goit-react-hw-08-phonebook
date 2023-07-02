@@ -1,5 +1,4 @@
 import { AppBar, MenuItem, MenuList } from '@mui/material';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { accessToken, userEmailSelector } from 'redux/auth/selectors';

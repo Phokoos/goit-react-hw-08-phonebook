@@ -15,12 +15,12 @@ export const Contacts = () => {
     setToken(isAuth);
     !isAuth && navigate('/login');
   }, [isAuth, navigate]);
+
   return (
     <>
       <ContactForm />
       <Filter />
       <ContactList />
-      {/* <Outlet /> */}
     </>
   );
 };

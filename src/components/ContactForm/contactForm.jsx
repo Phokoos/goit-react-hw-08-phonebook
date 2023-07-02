@@ -6,11 +6,9 @@ import {
 import { useEffect } from 'react';
 
 import { Input, InputLabel, Button, FormLabel } from '@mui/material';
-import { contactsListSelector } from 'redux/phonebookWithApi/selectors';
 
 const ContactForm = () => {
   const contactsState = useSelector(state => state.contacts.contacts.items);
-  // const contactsState = useSelector(contactsListSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {

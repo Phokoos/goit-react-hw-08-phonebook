@@ -1,7 +1,5 @@
 import { Button, FormLabel, Input, InputLabel } from '@mui/material';
-import { loginApi, setToken } from 'api/authApi';
 import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { accessToken } from 'redux/auth/selectors';
@@ -61,6 +59,7 @@ export const Login = () => {
             }}
             type="password"
             name="password"
+            // WRITE PATTERN
             // pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
             required
           />

@@ -76,6 +76,7 @@ export const Register = () => {
             }}
             type="password"
             name="password"
+            // WRITE PATTERN
             // pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
             required
           />

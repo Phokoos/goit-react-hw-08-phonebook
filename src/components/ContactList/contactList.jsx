@@ -7,7 +7,6 @@ import {
   contactsLoading,
 } from 'redux/phonebookWithApi/selectors';
 import { deleteContactsThunk } from 'redux/phonebookWithApi/thunks';
-import { addPhonebookContactApi, getPhonebookApi } from 'api/phonebookApi';
 
 const ContactList = () => {
   const contactsState = useSelector(contactsListSelector);
@@ -20,21 +19,7 @@ const ContactList = () => {
     dispatch(deleteContactsThunk(event.target.id));
   };
 
-  const testOnj = {
-    name: 'mykola',
-    number: '0258224',
-  };
-
-  const handleSetContact = ({ name, number }) => {
-    addPhonebookContactApi({ name, number });
-  };
-
   return (
-    // <div>
-    //   <button onClick={handleSetContact}>test</button>
-    //   <button onClick={getPhonebookApi}>test</button>
-    // </div>
-
     <ul className={css.contacts__list}>
       {contactsErrorState && <div>What`s happen wrong, please try again</div>}
       {isLoading && <Loader />}
